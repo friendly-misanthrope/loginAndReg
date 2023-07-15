@@ -26,6 +26,33 @@ module.exports.registerUser = async(req, res) => {
     }
   }
   catch(err){
-    res.json(err)
+    res.status(400).json({error: err})
+  }
+}
+
+module.exports.login = async(req,res) => {
+  try{
+    const getUser = User.findOne({
+      email: req.body.email
+    })
+    if (getUser){
+      // check if password (hash) provided is equal to password (hash) in database
+      const passwordsMatch = await(bcrypt.compare(req.body.password, getUser.password))
+      if (passwordsMatch){
+        // generate user token
+        // log user in
+        const userToken = jwt.sign({_id: getUser._id}, process.env.SECRET_KEY, {expiresIn: '2h'})
+        res.status(200).cookie('userToken', userToken, {httpOnly: true, sameSite: 'lax', maxAge: 2 * 60 * 60 * 1000}).json(getUser)
+      } else {
+        // if user exists but passwords don't match
+        res.status(400).json({message: "Invalid email or password"})
+      }
+    } else {
+      // if user doesn't exist
+      res.status(400).json({message: "Invalid email or password"})
+    }
+  }
+  catch(err){
+    res.status(400).json({error: err})
   }
 }
