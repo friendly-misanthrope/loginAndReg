@@ -1,6 +1,6 @@
 const User = require('../models/user.model')
 // only store secret key globally if used more than once
-// const secret_key = process.env.SECRET_KEY
+const secret_key = process.env.SECRET_KEY
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
@@ -18,7 +18,7 @@ module.exports.registerUser = async(req, res) => {
       const newUser = await User.create(req.body)
 
       // generate user token and store the id/email of the newly registered user
-      const userToken = jwt.sign({_id: newUser._id}, process.env.SECRET_KEY, {expiresIn: '2h'})
+      const userToken = jwt.sign({_id: newUser._id}, secret_key, {expiresIn: '2h'})
 
       // sending user and cookie back to client. Cookie arguments are keyName & value to assign it, http only allowed,
       // maxAge is cookie expiration in ms.
@@ -41,7 +41,7 @@ module.exports.login = async(req,res) => {
       if (passwordsMatch){
         // generate user token
         // log user in
-        const userToken = jwt.sign({_id: getUser._id}, process.env.SECRET_KEY, {expiresIn: '2h'})
+        const userToken = jwt.sign({_id: getUser._id}, secret_key, {expiresIn: '2h'})
         res.status(200).cookie('userToken', userToken, {httpOnly: true, sameSite: 'lax', maxAge: 2 * 60 * 60 * 1000}).json(getUser)
       } else {
         // if user exists but passwords don't match
