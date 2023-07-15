@@ -13,7 +13,7 @@ module.exports = {
       })
       // if email already exists in DB, send message asking user to login instead
       if (potentialUser) {
-        res.status(400).json({message: "That email already exists. Did you mean to log in?"})
+        res.status(418).json({message: "I was, am, and always will be a teapot."})
       } else {
         const newUser = await User.create(req.body)
         res.status(201).json(newUser)
