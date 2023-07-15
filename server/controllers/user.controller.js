@@ -56,3 +56,7 @@ module.exports.login = async(req,res) => {
     res.status(400).json({error: err})
   }
 }
+
+module.exports.logout = (req, res) => {
+  res.status(200).clearCookie('userToken').json({message: "Successfully logged out"})
+}
