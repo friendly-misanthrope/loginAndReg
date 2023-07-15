@@ -32,7 +32,7 @@ module.exports.registerUser = async(req, res) => {
 
 module.exports.login = async(req,res) => {
   try{
-    const getUser = User.findOne({
+    const getUser = await User.findOne({
       email: req.body.email
     })
     if (getUser){
