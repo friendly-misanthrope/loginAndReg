@@ -25,7 +25,8 @@ const UserSchema = new mongoose.Schema({
   }
 }, {timestamps: true})
 
-// * Middleware
+
+// * Mongoose Middleware
 
 // adds in temporary virtual 'confirm password' field,
 // as it doesn't need to be permanently stored.
@@ -56,5 +57,4 @@ UserSchema.pre('save', function(next){
     })
 })
 
-const User = mongoose.model('User', UserSchema);
-module.exports = User;
+module.exports = mongoose.model('User', UserSchema);
