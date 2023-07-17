@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const Login = (props) => {
 
-  const [user, setUser] = useState({
+  const [userLogin, setUserLogin] = useState({
     email: '',
     password: ''
   })
@@ -14,13 +14,13 @@ const Login = (props) => {
   const navigate = useNavigate()
 
   const changeHandler = (e) => {
-    setUser(prevState => { return { ...prevState, [e.target.name]: e.target.value } })
+    setUserLogin(prevState => { return { ...prevState, [e.target.name]: e.target.value } })
   }
 
   const sumbitHandler = (e) => {
     e.preventDefault()
 
-    axios.post(`http://localhost:8000/api/login`, user, {
+    axios.post(`http://localhost:8000/api/login`, userLogin, {
       withCredentials: true
     })
       .then((res) => {
@@ -28,7 +28,7 @@ const Login = (props) => {
         navigate('/dashboard')
       })
       .catch((err) => {
-        setErrors(err.response.data.error.errors)
+        setErrors(err.response.data)
       })
   }
   return (
@@ -36,18 +36,13 @@ const Login = (props) => {
       <h1>Login</h1>
       <form onSubmit={sumbitHandler}>
         <label htmlFor="email">Email:</label>
-        <input type="text" name="email" onChange={changeHandler} value={user.email}/>
-        {
-          errors.email ?
-            <span>{errors.email.message}</span>
-            :null
-        }
+        <input type="text" name="email" onChange={changeHandler} value={userLogin.email}/>
 
         <label htmlFor="password">Password:</label>
-        <input type="password" name="password" onChange={changeHandler} value={user.password} />
+        <input type="password" name="password" onChange={changeHandler} value={userLogin.password} />
         {
-          errors.password ?
-            <span>{errors.password.message}</span>
+          errors ?
+            <span>{errors.message}</span>
             :null
         }
 

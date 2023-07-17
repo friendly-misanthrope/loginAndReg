@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.user-form {
+form {
   display: flex;
   flex-direction: column;
   width: 35rem;

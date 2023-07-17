@@ -37,7 +37,7 @@ module.exports.login = async(req,res) => {
     })
     if (getUser){
       // check if password (hash) provided is equal to password (hash) in database
-      const passwordsMatch = bcrypt.compare(req.body.password, getUser.password)
+      const passwordsMatch = await bcrypt.compare(req.body.password, getUser.password)
       if (passwordsMatch){
         // generate user token
         // log user in
