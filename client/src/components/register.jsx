@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import axios from 'axios';
 
 const Register = (props) => {
@@ -28,8 +28,7 @@ const Register = (props) => {
     })
       .then((res) => {
         console.log(res.data)
-        // ! Don't forget to navigate back to dashboard
-        // navigate('/')
+        navigate('/dashboard')
       })
       .catch((err) => {
         setErrors(err.response.data.error.errors)
@@ -83,6 +82,7 @@ const Register = (props) => {
 
         <button>Register</button>
       </form>
+      <Link to ={'/login'}>Already have an account?</Link>
     </div>
   );
 }
