@@ -24,8 +24,7 @@ const Register = (props) => {
     e.preventDefault()
 
     axios.post(`http://localhost:8000/api/register`, user, {
-      withCredentials: true,
-      headers: {'Access-Control-Allow-Origin': '*'}
+      withCredentials: true
     })
       .then((res) => {
         console.log(res.data)
@@ -33,8 +32,7 @@ const Register = (props) => {
         // navigate('/')
       })
       .catch((err) => {
-        // setErrors(err.response.data.error.errors)
-        console.log(err)
+        setErrors(err.response.data.error.errors)
       })
   }
 
@@ -45,18 +43,43 @@ const Register = (props) => {
 
         <label htmlFor="firstName">First name:</label>
         <input type="text" name="firstName" onChange={changeHandler} value={user.firstName} />
+        {
+          errors.firstName ?
+            <span>{errors.firstName.message}</span>
+            :null
+        }
 
         <label htmlFor="lastName">Last name:</label>
         <input type="text" name="lastName" onChange={changeHandler} value={user.lastName} />
+        {
+          errors.lastName ?
+            <span>{errors.lastName.message}</span>
+            :null
+        }
 
         <label htmlFor="email">Email:</label>
         <input type="text" name="email" onChange={changeHandler} value={user.email} />
+        {
+          errors.email ?
+            <span>{errors.email.message}</span>
+            :null
+        }
 
         <label htmlFor="password">Password:</label>
         <input type="password" name="password" onChange={changeHandler} value={user.password} />
+        {
+          errors.password ?
+            <span>{errors.password.message}</span>
+            :null
+        }
 
         <label htmlFor="confirmPassword">Confirm Password:</label>
         <input type="password" name="confirmPassword" onChange={changeHandler} value={user.confirmPassword} />
+        {
+          errors.confirmPassword ?
+            <span>{errors.confirmPassword.message}</span>
+            :null
+        }
 
         <button>Register</button>
       </form>
