@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+}
+
+.user-form {
+  display: flex;
+  flex-direction: column;
+  width: 35rem;
+  margin: 0 auto;
+}
