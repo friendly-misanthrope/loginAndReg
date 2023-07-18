@@ -19,10 +19,10 @@ const Register = (props) => {
     setUser(prevState => {return { ...prevState, [e.target.name]: e.target.value }})
   }
 
-  const sumbitHandler = async(e) => {
+  const sumbitHandler = (e) => {
     e.preventDefault()
 
-    await axios.post(`http://localhost:8000/api/register`, user, {
+    axios.post(`http://localhost:8000/api/register`, user, {
       withCredentials: true
     })
       .then((res) => {
