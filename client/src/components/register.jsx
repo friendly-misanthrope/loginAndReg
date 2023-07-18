@@ -1,9 +1,10 @@
-import {useState} from 'react';
-import {useNavigate, Link} from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Register = (props) => {
 
+  const [errors, setErrors] = useState({})
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -12,18 +13,16 @@ const Register = (props) => {
     confirmPassword: ''
   })
 
-  const [errors, setErrors] = useState({})
-
   const navigate = useNavigate()
 
   const changeHandler = (e) => {
     setUser(prevState => {return { ...prevState, [e.target.name]: e.target.value }})
   }
 
-  const sumbitHandler = (e) => {
+  const sumbitHandler = async(e) => {
     e.preventDefault()
 
-    axios.post(`http://localhost:8000/api/register`, user, {
+    await axios.post(`http://localhost:8000/api/register`, user, {
       withCredentials: true
     })
       .then((res) => {
@@ -61,7 +60,7 @@ const Register = (props) => {
         {
           errors.email ?
             <span>{errors.email.message}</span>
-            :null
+            : null
         }
 
         <label htmlFor="password">Password:</label>

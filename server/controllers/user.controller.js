@@ -4,6 +4,17 @@ const secret_key = process.env.SECRET_KEY
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
+module.exports.getCurrentUser = async(req,res) => {
+  User.findOne({_id: req.params.id})
+    .then((thisUser) => {
+      res.json(thisUser)
+    })
+    .catch((err) => {
+      res.json(err)
+      return false
+    })
+}
+
 ////////// * BEGIN AUTHENTICATION * //////////
 module.exports.registerUser = async(req, res) => {
   // Check if email entered by user already exists in DB
@@ -13,7 +24,13 @@ module.exports.registerUser = async(req, res) => {
     })
     // if email already exists in DB, send message asking user to login instead
     if (potentialUser) {
-      res.status(418).json({message: "I was, am, and always will be a teapot."})
+      res.status(418).json({error: {
+        errors: {
+          email: {
+            message: "This email already has an account associated with it. Please login or choose another email."
+          }
+        }
+      }})
     } else {
       const newUser = await User.create(req.body)
 
