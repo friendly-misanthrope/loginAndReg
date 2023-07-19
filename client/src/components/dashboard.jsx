@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 
@@ -7,7 +6,7 @@ const Dashboard = (props) => {
   const navigate = useNavigate()
 
   const logout = () => {
-    axios.post('http://localhost:8000/api/logout', {}, {withCredentials: true})
+    axios.post('https://localhost:8000/api/logout', {}, {withCredentials: true})
       .then((res) => {
         navigate('/')
       })

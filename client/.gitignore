@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+rootCA-key.pem
+rootCA.pem
 
 # testing
 /coverage

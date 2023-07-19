@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 // ! I run VSCode in a virutal Linux environment that requires
 // ! the use a local network IP.
 
-mongoose.connect('mongodb://192.168.1.3:27017/login_reg_users', {
+mongoose.connect('mongodb://127.0.0.1:27017/login_reg_users', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })

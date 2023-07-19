@@ -22,7 +22,7 @@ const Register = (props) => {
   const sumbitHandler = (e) => {
     e.preventDefault()
 
-    axios.post(`http://localhost:8000/api/register`, user, {
+    axios.post(`https://localhost:8000/api/register`, user, {
       withCredentials: true
     })
       .then((res) => {
