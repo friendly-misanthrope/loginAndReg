@@ -31,9 +31,9 @@ const UserSchema = new mongoose.Schema({
 // adds in temporary virtual 'confirm password' field,
 // as it doesn't need to be permanently stored.
 UserSchema.virtual('confirmPassword')
-  // GET confirmPassword field
+  // GET confirmPassword field from form
   .get(() => this.confirmPassword)
-  // SET confirmPassword field
+  // SET virtual confirmPassword field
   .set((value) => this.confirmPassword = value)
 
 // PREvious to saving anything in database
