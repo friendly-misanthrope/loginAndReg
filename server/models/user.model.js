@@ -38,7 +38,7 @@ UserSchema.virtual('confirmPassword')
 
 // PREvious to saving anything in database
 // Takes 2 arguments: when we want it to run, in this case
-// previous to validating, and the function to run
+// previous to validating, and the CB function to run at that time
 UserSchema.pre('validate', function(next){
   if (this.password !== this.confirmPassword){
     this.invalidate('confirmPassword', 'Passwords must match')
